@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVote | Admin login</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="page-shell narrow-shell"><section class="card">
+    <p class="eyebrow">SecureVote administration</p>
+    <h1>Admin login</h1><p class="intro">Sign in to manage the election securely. A one-time password will be sent after your credentials are validated.</p>
+<form id="loginForm" class="form-grid">
+    <label for="adminId">Admin ID</label>
+    <input id="adminId" required placeholder="Enter admin ID">
+    <label for="password">Password</label>
+    <input id="password" type="password" required placeholder="Enter password">
+    <button type="submit">Continue to verification</button>
+    <p id="loginMessage" class="message" role="alert"></p>
+</form>
+<div class="info-box">Use your registered election officer credentials to continue securely.</div>
+<a class="secondary-link" href="admin_register.html">New election officer? Register here</a>
+</section>
+</main>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const id = document.getElementById('adminId').value.trim().toLowerCase();
+        const password = document.getElementById('password').value;
+        const message = document.getElementById('loginMessage');
+        const locked = localStorage.getItem('adminLocked') === 'true';
+        const registeredAdmin = JSON.parse(localStorage.getItem('adminRegistration') || 'null');
+        const validRegisteredAdmin = registeredAdmin && id === registeredAdmin.officerId.toLowerCase() && password === registeredAdmin.password;
+
+        if (locked) {
+            message.textContent = 'This administrator account is locked. Contact the election officer.';
+            message.className = 'message error';
+            return;
+        }
+
+        if (!validRegisteredAdmin) {
+            message.textContent = 'Invalid Admin ID or password.';
+            message.className = 'message error';
+            return;
+        }
+
+        sessionStorage.setItem('adminOtp', String(Math.floor(100000 + Math.random() * 900000)));
+        sessionStorage.setItem('adminOtpCreated', String(Date.now()));
+        window.location.href = 'admin_otp.html';
+    });
+</script>
+</body>
+</html>

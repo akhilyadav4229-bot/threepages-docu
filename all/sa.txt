@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>javaScript Demo Page</title>
+</head>
+<body>
+<h2>Initial scripting</h2>
+<p id="demo1">THE BASIC PARAGRAPH</p>
+<button type="submit" onclick="">CLICK ME </button>
+<script>
+fuction fun1(){
+
+document.getElementById('demo1').innerHTML='CHANGED CONTENT OF JAVA'
+}
+
+</script>
+</body>
+
+</html>

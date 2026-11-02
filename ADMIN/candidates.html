@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVote | Candidates</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <a class="brand" href="dashboard.html">SecureVote<small>Admin console</small></a>
+            <nav class="nav">
+                <a href="dashboard.html">Overview</a>
+                <a class="active" href="candidates.html">Candidates</a>
+                <a href="constituencies.html">Constituencies</a>
+                <a href="schedule.html">Election schedule</a>
+                <a href="results.html">Results</a>
+                <a href="admin_home.html">Sign out</a>
+            </nav>
+        </aside>
+        <main class="content">
+            <header class="topline">
+                <div>
+                    <p class="eyebrow">Ballot management</p>
+                    <h1>Candidates</h1>
+                    <p>Add and review candidates before publishing the ballot.</p>
+                </div>
+            </header>
+            <section class="workspace">
+                <form id="candidateForm" class="split-form">
+                    <div>
+                        <label for="name">Candidate name</label>
+                        <input id="name" required placeholder="Full name">
+                    </div>
+                    <div>
+                        <label for="party">Party or group</label>
+                        <input id="party" required placeholder="Party name">
+                    </div>
+                    <button type="submit">Add candidate</button>
+                </form>
+                <p id="message" class="message" role="alert"></p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Party or group</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidateRows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        if (sessionStorage.getItem('adminVerified') !== 'true') {
+            window.location.href = 'admin_home.html';
+        }
+
+        const form = document.getElementById('candidateForm');
+        const rows = document.getElementById('candidateRows');
+        let candidates = JSON.parse(localStorage.getItem('candidates') || '[]');
+
+        function render() {
+            rows.innerHTML = candidates.length ? candidates.map(function (candidate, index) {
+                return '<tr><td>' + candidate.name + '</td><td>' + candidate.party + '</td><td><span class="tag">Active</span></td><td><button class="secondary" data-index="' + index + '" type="button">Remove</button></td></tr>';
+            }).join('') : '<tr><td colspan="4" class="empty">No candidates added yet.</td></tr>';
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            candidates.push({
+                name: document.getElementById('name').value.trim(),
+                party: document.getElementById('party').value.trim()
+            });
+            localStorage.setItem('candidates', JSON.stringify(candidates));
+            form.reset();
+            document.getElementById('message').textContent = 'Candidate added to the ballot.';
+            document.getElementById('message').className = 'message success';
+            render();
+        });
+
+        rows.addEventListener('click', function (event) {
+            if (event.target.dataset.index === undefined) return;
+            candidates.splice(Number(event.target.dataset.index), 1);
+            localStorage.setItem('candidates', JSON.stringify(candidates));
+            render();
+        });
+
+        render();
+    </script>
+</body>
+</html>

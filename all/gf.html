@@ -1,0 +1,263 @@
+<html>
+<head>
+<title>Hangyo</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: white;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "header header header header"
+    "menu menu menu menu"
+    "banner banner banner banner"
+    "title title title title"
+    "products products products products"
+    "offer offer offer offer"
+    "services services services services"
+    "footer footer footer footer";
+}
+
+/* Header */
+.header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  background-color: pink;
+  align-items: center;
+}
+.logo img {
+  width: 150px;
+  height: 100px;
+}
+.search input[type="text"] {
+  width: 280px;
+  height: 40px;
+  text-align: center;
+}
+.search input[type="submit"] {
+  width: 80px;
+  height: 40px;
+  background-color: pink;
+  color: white;
+  border: 1px solid white;
+}
+
+/* Menu */
+.menu {
+  grid-area: menu;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: pink;
+  text-align: center;
+}
+.menu div {
+  color: white;
+  font-weight: bold;
+}
+
+/* Banner */
+.banner {
+  grid-area: banner;
+  width: 100%;
+  background-color: lightblue;
+  overflow: hidden;
+}
+.slider {
+  display: flex;
+  width: 300%;
+  animation: slide 10s infinite;
+}
+.slider img {
+  width: 33.33%;
+  height: 300px;
+  display: block;
+}
+@keyframes slide {
+  0% { transform: translateX(0); }
+  28% { transform: translateX(0); }
+  33% { transform: translateX(-33.33%); }
+  61% { transform: translateX(-33.33%); }
+  68% { transform: translateX(-66.66%); }
+  94% { transform: translateX(-66.66%); }
+  100% { transform: translateX(0); }
+}
+
+/* Title */
+.title {
+  grid-area: title;
+  background-color: pink;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* Products */
+.products {
+  grid-area: products;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: pink;
+  text-align: center;
+}
+.products div {
+  border: 1px solid white;
+  padding: 10px;
+}
+.products img {
+  width: 60%;
+  height: auto;
+}
+
+/* Offer */
+.offer {
+  grid-area: offer;
+  background-color: pink;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+.offer b {
+  color: black;
+}
+
+/* Services row with side sliders */
+.services {
+  grid-area: services;
+  background-color: pink;
+  display: grid;
+  grid-template-columns: 20% 60% 20%; /* left slider, center content, right slider */
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+.services .side-slider {
+  overflow: hidden;
+}
+.services .slider {
+  display: flex;
+  width: 300%;
+  animation: slide 10s infinite;
+}
+.services .slider img {
+  width: 33.33%;
+  height: 200px;
+  display: block;
+}
+.services hr {
+  color: white;
+  border: 1px solid white;
+}
+
+/* Footer */
+.footer {
+  grid-area: footer;
+  background-color: pink;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo"><img src="ice.png" alt="company-logo"/></div>
+    <div class="search">
+      <input type="text" placeholder="Enter Name"/>
+      <input type="submit" value="SEARCH"/>
+    </div>
+    <div class="account"><b>login</b> | <b>Register</b> | <b>cart(0)</b></div>
+  </header>
+
+  <!-- Menu -->
+  <div class="menu">
+    <div>Bars</div>
+    <div>Sippup</div>
+    <div>Cup</div>
+    <div>1000ml</div>
+    <div>500ml</div>
+    <div>Cones</div>
+    <div>4000ml</div>
+  </div>
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="slider">
+      <img src="bar.webp" alt="Shopping offer">
+      <img src="ice.png" alt="Electronics offer">
+      <img src="slid_1.webp" alt="Fashion offer">
+      <img src="slid_2.webp" alt="Fashion offer">
+      <img src="midd.webp" alt="Fashion offer">
+      <img src="ice.png" alt="Fashion offer">
+    </div>
+  </section>
+
+  <!-- Title -->
+  <div class="title">Discount</div>
+
+  <!-- Products -->
+  <div class="products">
+    <div><img src="cup.webp"/><br>50%<br><input type="button" value="Order"/></div>
+    <div><img src="bar.webp"/><br>30%<br><input type="button" value="Order"/></div>
+    <div><img src="ml.webp"/><br>25%<br><input type="button" value="Order"/></div>
+    <div><img src="aki.webp"/><br>10%<br><input type="button" value="Order"/></div>
+  </div>
+
+  <!-- Offer -->
+  <div class="offer">
+    <b>HANGYO'S ICE CREAM (AD)VENTURE</b><br>
+    1997: A trip to Australia ignites Mr. Pradeep G Pai's ice-cream venture idea and the first Hangyo ‘Softee’ is launched in Mangalore.
+  </div>
+
+  <!-- Services row with side sliders -->
+  <div class="services">
+    <!-- Left slider -->
+    <div class="side-slider">
+      <div class="slider">
+        <img src="bar.webp" alt="Left slide">
+        <img src="cup.webp" alt="Left slide">
+        <img src="ml.webp" alt="Left slide">
+      </div>
+    </div>
+
+    <!-- Center content -->
+    <div>
+      <img src="last.svg"/><br>
+      Shop &nbsp; About &nbsp; Contact &nbsp; Terms & Conditions &nbsp; Privacy Policy<br><br>
+      <img src="last1.avif"/><br>
+      <hr><br>
+      © 2026, Hangyo Designed & Developed by Nester's Hub
+    </div>
+
+    <!-- Right slider -->
+    <div class="side-slider">
+      <div class="slider">
+        <img src="ml.webp" alt="Right slide">
+        <img src="cup.webp" alt="Right slide">
+        <img src="bar.webp" alt="Right slide">
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- Extra footer info if needed -->
+  </footer>
+
+</div>
+</body>
+</html>

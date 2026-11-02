@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My E-Commerce Website</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            border: 1px solid red;
+            display: grid;
+            grid-template-rows: 20vh 30vh 30vh 20vh;
+            grid-template-columns: 25% 25% 25% 25%;
+            min-height: 100vh;
+        }
+
+        .sec1 {
+            background-color: pink;
+            grid-row: 1 / 2;
+            grid-column: 1 / 5;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sec1 h1 {
+            margin: 10px;
+            font-size: 35px;
+        }
+
+        .sec1 p {
+            font-size: 18px;
+        }
+
+        .sec2 {
+            background-color: orange;
+            grid-row: 2 / 3;
+            grid-column: 1 / 2;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sec3 {
+            background-color: pink;
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .sec4 {
+            background-color: orange;
+            grid-row: 2 / 3;
+            grid-column: 3 / 4;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .sec5 {
+            background-color: pink;
+            grid-row: 2 / 4;
+            grid-column: 4 / 5;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .sec6 {
+            background-color: pink;
+            grid-row: 3 / 4;
+            grid-column: 1 / 4;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .sec7 {
+            background-color: orange;
+            grid-row: 4 / 5;
+            grid-column: 1 / 5;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product {
+            background-color: white;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 28%;
+            color: black;
+        }
+
+        .product h3 {
+            margin: 5px;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: gray;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: black;
+            margin: 15px;
+            font-weight: bold;
+        }
+
+        .sec5 button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+       <div class="sec1">
+        <h1>Hangyo Store</h1>
+        <p>Welcome to our online shopping with Hangyo</p>
+
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Offers</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    
+    <div class="sec2">
+        <h2>Bars</h2>
+        <p>Latest products</p>
+        <button>Shop Now</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="sec3">
+        <h2>Cup ITEMS</h2>
+        <p>Trendy items</p>
+        <button>Shop Now</button>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="sec4">
+        <h2>Cones</h2>
+        <p>most liking</p>
+        <button>Shop Now</button>
+    </div>
+
+    <!-- Offers -->
+    <div class="sec5">
+        <h2> Special Offers</h2>
+        <p>Get up to</p>
+        <h1>50% OFF</h1>
+        <p>On selected products</p>
+        <button>Buy Now</button>
+    </div>
+
+    <!-- Products -->
+    <div class="sec6">
+        <h2>Offer Products</h2>
+
+        <div class="product">
+            <h3>Tub</h3>
+            <p>₹500.00 only</p>
+            <button>Add Cart</button>
+        </div>
+
+        <div class="product">
+            <h3>500 ml</h3>
+            <p>₹250.00 only</p>
+            <button>Add Cart</button>
+        </div>
+
+        <div class="product">
+            <h3>4 KG</h3>
+            <p>₹1000</p>
+            <button>Add Cart</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="sec7">
+        <h3>About Us</h3>
+        <p>
+            We provide quality products at affordable prices.
+            Thank you for shopping with us!
+        </p>
+        <p>© 2026 My E-Commerce Store | All Rights Reserved</p>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>Login Page with Validation</title>
+<style>
+body { background: white; }
+.box {
+width: 300px; margin: 100px auto; padding: 20px;
+background:pink ;
+}
+input[type="text"] {
+width: 100%;  padding: 10px;
+border: 1; 
+}
+input[type="password"]
+{
+width: 100%;  padding: 10px;
+border: 1; 
+}
+input[type="submit"] {
+width: 100%; padding: 10px; background: blue; color: white;
+border-radius: 4px; 
+}
+input[type="submit"]:hover { background: blue; }
+error { color: red; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Login</h2>
+<form id="loginForm">
+<label>Username:</label>
+<input type="text" id="username" name="username" placeholder ="Enter the name">
+<div id="userError" class="error"></div>
+      
+<label>Password:</label>
+<input type="password" id="password" name="password" placeholder ="Enter the password">
+<div id="passError" class="error"></div>
+      
+<input type="submit" value="Login">
+</form>
+</div>
+
+<script>
+const form = document.getElementById("loginForm");
+const userError = document.getElementById("userError");
+const passError = document.getElementById("passError");
+
+form.addEventListener("submit", function(event) {
+event.preventDefault();
+
+const username = document.getElementById("username").value.trim();
+const password = document.getElementById("password").value.trim();
+let valid = true;
+
+
+userError.textContent = "";
+passError.textContent = "";
+
+if (username === "") {
+userError.textContent = "Username is required.";
+valid = false;
+}
+
+if (password === "") {
+passError.textContent = "Password is required.";
+valid = false;
+ }
+if(password.length<6){
+passError.textContent = "Minimum 6 Characters required.";
+valid = false;}
+
+if (valid) {
+localStorage.setItem("username",username);
+localStorage.setItem("password",password);
+alert("Login successful!");
+}
+});
+</script>
+</body>
+</html>

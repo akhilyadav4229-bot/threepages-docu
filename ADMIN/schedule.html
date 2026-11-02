@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SecureVote | Election schedule</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="admin-layout">
+            <aside class="sidebar">
+                <a class="brand" href="dashboard.html">SecureVote<small>Admin console</small></a>
+                <nav class="nav">
+                    <a href="dashboard.html">Overview</a>
+                    <a href="candidates.html">Candidates</a>
+                    <a href="constituencies.html">Constituencies</a>
+                    <a class="active" href="schedule.html">Election schedule</a>
+                    <a href="results.html">Results</a>
+                    <a href="admin_home.html">Sign out</a>
+                </nav>
+            </aside>
+            <main class="content">
+                <header class="topline">
+                    <div>
+                        <p class="eyebrow">Election operations</p>
+                        <h1>Election schedule</h1>
+                        <p>Voting opens and closes automatically according to this schedule.</p>
+                    </div>
+                </header>
+                <section class="workspace">
+                    <form id="scheduleForm" class="form-grid">
+                        <label for="date">Election date</label>
+                        <input id="date" type="date" required>
+                        <div class="grid-two">
+                            <div>
+                                <label for="start">Voting opens</label>
+                                <input id="start" type="time" required>
+                            </div>
+                            <div>
+                                <label for="end">Voting closes</label>
+                                <input id="end" type="time" required>
+                            </div>
+                        </div>
+                        <button type="submit">Save schedule</button>
+                        <p id="message" class="message" role="alert"></p>
+                    </form>
+                    <div class="info-box">
+                        <strong id="status">No schedule saved.</strong><br>
+                        <span id="detail">Once saved, the system will determine whether voting is open or closed.</span>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script>if (sessionStorage.getItem('adminVerified') !== 'true') window.location.href = 'admin_home.html'; const form = document.getElementById('scheduleForm'); const saved = JSON.parse(localStorage.getItem('electionSchedule') || 'null'); if (saved) { document.getElementById('date').value = saved.date; document.getElementById('start').value = saved.start; document.getElementById('end').value = saved.end; } function updateStatus() { const schedule = JSON.parse(localStorage.getItem('electionSchedule') || 'null'); if (!schedule) return; const current = new Date(); const opening = new Date(schedule.date + 'T' + schedule.start); const closing = new Date(schedule.date + 'T' + schedule.end); const isOpen = current >= opening && current < closing; schedule.status = isOpen ? 'open' : 'closed'; localStorage.setItem('electionSchedule', JSON.stringify(schedule)); document.getElementById('status').textContent = isOpen ? 'Voting is currently open.' : 'Voting is currently closed.'; document.getElementById('detail').textContent = schedule.date + ' | ' + schedule.start + ' to ' + schedule.end; } form.addEventListener('submit', function (event) { event.preventDefault(); if (document.getElementById('end').value <= document.getElementById('start').value) { document.getElementById('message').textContent = 'Closing time must be after opening time.'; document.getElementById('message').className = 'message error'; return; } const schedule = { date: document.getElementById('date').value, start: document.getElementById('start').value, end: document.getElementById('end').value, status: 'closed' }; localStorage.setItem('electionSchedule', JSON.stringify(schedule)); document.getElementById('message').textContent = 'Election schedule saved.'; document.getElementById('message').className = 'message success'; updateStatus(); }); updateStatus();</script>
+
+    </body>
+
+</html>

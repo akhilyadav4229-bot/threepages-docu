@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SecureVote | Voter Login</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="page-shell narrow-shell">
+		<section class="card">
+			<p class="eyebrow">SecureVote</p>
+			<h1>Voter login</h1>
+				<p class="intro">Enter the last six digits of your Aadhaar number and your date of birth to continue.</p>
+
+			<form id="loginForm" class="form-grid">
+				<label for="voterId">Voter ID</label>
+				<input id="voterId" name="voterId" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="Example: 887777" required>
+
+				<label for="password">Password</label>
+				<input id="password" name="password" type="password" placeholder="Enter password" required>
+
+				<button type="submit">Continue</button>
+				<p id="loginMessage" class="message" role="alert"></p>
+			</form>
+
+			<a class="secondary-link" href="register.html">New voter? Register here</a>
+		</section>
+	</main>
+
+	<script>
+		const registeredVoters = JSON.parse(localStorage.getItem('registeredVoters') || '{}');
+		const voters = registeredVoters;
+
+		document.getElementById('loginForm').addEventListener('submit', function (event) {
+			event.preventDefault();
+			const voterId = document.getElementById('voterId').value.trim().toUpperCase();
+			const password = document.getElementById('password').value;
+			const voter = voters[voterId];
+			const message = document.getElementById('loginMessage');
+
+			if (!voter || voter.password !== password) {
+				message.textContent = 'Invalid voter ID or password.';
+				message.className = 'message error';
+				return;
+			}
+
+			if (voter.hasVoted || localStorage.getItem('voted_' + voterId) === 'true') {
+				window.location.href = 'denied.html';
+				return;
+			}
+
+			const otp = String(Math.floor(100000 + Math.random() * 900000));
+			sessionStorage.setItem('voterId', voterId);
+			sessionStorage.setItem('otp', otp);
+			sessionStorage.setItem('otpCreated', String(Date.now()));
+			sessionStorage.setItem('contact', voter.contact);
+			window.location.href = 'otp.html';
+		});
+	</script>
+</body>
+</html>

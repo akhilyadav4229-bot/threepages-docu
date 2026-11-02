@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVote | Constituencies</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body><div class="admin-layout">
+    <aside class="sidebar">
+        <a class="brand" href="dashboard.html">SecureVote<small>Admin console</small></a>
+        <nav class="nav">
+            <a href="dashboard.html">Overview</a>
+            <a href="candidates.html">Candidates</a>
+            <a class="active" href="constituencies.html">Constituencies</a>
+            <a href="schedule.html">Election schedule</a>
+            <a href="results.html">Results</a>
+            <a href="admin_home.html">Sign out</a>
+        </nav>
+    </aside>
+    <main class="content">
+        <header class="topline">
+            <div><p class="eyebrow">Election geography</p>
+                <h1>Constituencies</h1><p>Define the areas that will appear on the ballot.</p>
+            </div>
+        </header>
+        <section class="workspace">
+            <form id="areaForm" class="split-form">
+                <div><label for="area">Constituency name</label>
+                    <input id="area" required placeholder="Example: Central Ward">
+                </div>
+                <div><label for="stations">Polling stations</label>
+                    <input id="stations" type="number" min="1" required placeholder="Number">
+                </div><button type="submit">Add constituency</button>
+            </form>
+            <p id="message" class="message" role="alert"></p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Constituency</th><th>Polling stations</th>
+                            <th>Status</th><th></th></tr></thead><tbody id="areaRows">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script>if (sessionStorage.getItem('adminVerified') !== 'true') window.location.href = 'admin_home.html'; const form = document.getElementById('areaForm'); const rows = document.getElementById('areaRows'); let areas = JSON.parse(localStorage.getItem('constituencies') || '[]'); function render() { rows.innerHTML = areas.length ? areas.map(function (area, index) { return '<tr><td>' + area.name + '</td><td>' + area.stations + '</td><td><span class="tag">Ready</span></td><td><button class="secondary" data-index="' + index + '" type="button">Remove</button></td></tr>'; }).join('') : '<tr><td colspan="4" class="empty">No constituencies added yet.</td></tr>'; } form.addEventListener('submit', function (event) { event.preventDefault(); areas.push({ name: document.getElementById('area').value.trim(), stations: document.getElementById('stations').value }); localStorage.setItem('constituencies', JSON.stringify(areas)); form.reset(); document.getElementById('message').textContent = 'Constituency added.'; document.getElementById('message').className = 'message success'; render(); }); rows.addEventListener('click', function (event) { if (event.target.dataset.index === undefined) return; areas.splice(Number(event.target.dataset.index), 1); localStorage.setItem('constituencies', JSON.stringify(areas)); render(); }); render();
+        </script>
+        </body>
+        </html>

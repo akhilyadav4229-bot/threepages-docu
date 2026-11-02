@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SecureVote | Dashboard</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <a class="brand" href="dashboard.html">SecureVote<small>Admin console</small></a>
+            <nav class="nav">
+                <a class="active" href="dashboard.html">Overview</a>
+                <a href="candidates.html">Candidates</a>
+                <a href="constituencies.html">Constituencies</a>
+                <a href="schedule.html">Election schedule</a>
+                <a href="results.html">Results</a>
+                <a href="admin_home.html" id="logout">Sign out</a>
+            </nav>
+        </aside>
+        <main class="content">
+            <header class="topline">
+                <div>
+                    <p class="eyebrow">Election control room</p>
+                    <h1>Good morning, administrator.</h1>
+                    <p>Monitor the election and keep every stage on schedule.</p>
+                </div>
+                <span class="tag" id="electionStatus">Election status</span>
+            </header>
+            <section class="metrics">
+                <article class="metric">
+                    <span>Registered voters</span>
+                    <strong>1,248</strong>
+                </article>
+                <article class="metric">
+                    <span>Polling stations</span>
+                    <strong>24</strong>
+                </article>
+                <article class="metric">
+                    <span>Candidates</span>
+                    <strong id="candidateCount">0</strong>
+                </article>
+                <article class="metric">
+                    <span>Turnout</span>
+                    <strong>68%</strong>
+                </article>
+            </section>
+            <div class="grid-two">
+                <section class="workspace">
+                    <h2>Today's election activity</h2>
+                    <p class="intro">The control room is ready. Review the schedule before opening or closing the ballot.</p>
+                    <div class="info-box">
+                        <strong id="scheduleSummary">No schedule configured yet.</strong><br>
+                        <span id="scheduleDetail">Set the opening and closing time from Election schedule.</span>
+                    </div>
+                    <div class="actions">
+                        <a class="button-link" href="schedule.html">Manage schedule</a>
+                        <a class="button-link" href="results.html">Tally results</a>
+                    </div>
+                </section>
+                <section class="workspace">
+                    <h2>Quick management</h2>
+                    <p class="intro">Keep the ballot paper and constituencies up to date.</p>
+                    <div class="actions">
+                        <a class="button-link" href="candidates.html">Manage candidates</a>
+                        <a class="button-link" href="constituencies.html">Manage constituencies</a>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>if (sessionStorage.getItem('adminVerified') !== 'true') window.location.href = 'admin_home.html'; const candidates = JSON.parse(localStorage.getItem('candidates') || '[]'); document.getElementById('candidateCount').textContent = candidates.length; const schedule = JSON.parse(localStorage.getItem('electionSchedule') || 'null'); if (schedule) { document.getElementById('scheduleSummary').textContent = schedule.status === 'open' ? 'Voting is currently open.' : 'Voting is currently closed.'; document.getElementById('scheduleDetail').textContent = schedule.date + ' | ' + schedule.start + ' to ' + schedule.end; document.getElementById('electionStatus').textContent = schedule.status === 'open' ? 'Voting open' : 'Voting closed'; document.getElementById('electionStatus').className = 'tag ' + (schedule.status === 'open' ? '' : 'closed'); } document.getElementById('logout').addEventListener('click', function () { sessionStorage.clear(); });</script>
+
+</body>
+
+</html>
